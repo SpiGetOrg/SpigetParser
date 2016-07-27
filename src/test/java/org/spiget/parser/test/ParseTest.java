@@ -42,7 +42,7 @@ public class ParseTest {
 
 	@Test
 	public void resourceItemParseTest() throws IOException {
-		String html = org.apache.commons.io.IOUtils.toString(ParseTest.class.getResourceAsStream("/HologramAPI-ResourceItem.html"));
+		String html = org.apache.commons.io.IOUtils.toString(ParseTest.class.getResourceAsStream("/vendor/HologramAPI-ResourceItem.html"));
 		Document document = Jsoup.parse(html);
 		Element resourceItem = document.select("li.resourceListItem").first();
 
@@ -56,7 +56,7 @@ public class ParseTest {
 
 	@Test
 	public void resourcePageParseTest() throws IOException {
-		String html = org.apache.commons.io.IOUtils.toString(ParseTest.class.getResourceAsStream("/InventoryScroll-ResourcePage.html"));
+		String html = org.apache.commons.io.IOUtils.toString(ParseTest.class.getResourceAsStream("/vendor/InventoryScroll-ResourcePage.html"));
 		Document document = Jsoup.parse(html);
 
 		ListedResource base = new ListedResource(21714, "InventoryScroll");//Would be provided by the resource list fetcher
