@@ -107,6 +107,22 @@ public class ResourceListItemParser {
 			}
 		}
 
+		{
+			Element cost = resourceItem.select("span.cost").first();
+			if (cost != null) {// Premium resource
+				listedResource.setPremium(true);
+				String[] costSplit = cost.text().split(" ");
+				if (costSplit.length == 2) {
+					try {
+						listedResource.setPrice(Double.parseDouble(costSplit[0]));
+					} catch (NumberFormatException e) {
+						listedResource.setPrice(0);
+					}
+					listedResource.setCurrency(costSplit[1]);
+				}
+			}
+		}
+
 		return listedResource;
 	}
 
