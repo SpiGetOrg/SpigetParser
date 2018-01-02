@@ -103,5 +103,4 @@ public class ParseTest {
 		System.out.println(string + " => " + number);
 	}
 
-
 }

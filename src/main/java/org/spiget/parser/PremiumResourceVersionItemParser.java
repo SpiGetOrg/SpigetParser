@@ -25,7 +25,8 @@ public class PremiumResourceVersionItemParser extends ResourceVersionItemParser 
 		Element releaseDateTime = abbrOrSpan(releaseDate, ".DateTime");
 
 		// Generate a unique ID for the version
-		String versionIdString = String.valueOf(resource.getId()) + stringToNumber(version.text()) + stringToNumber(releaseDateTime.attr("title"));
+		int versionId = Math.abs(stringToNumber(releaseDateTime.attr("title"), resource.getId()) + stringToNumber(version.text(), resource.getId()));
+		String versionIdString = "999"+ String.valueOf(resource.getId() + versionId);
 
 		ResourceVersion resourceVersion;
 		{
