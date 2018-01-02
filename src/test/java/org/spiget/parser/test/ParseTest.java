@@ -87,4 +87,21 @@ public class ParseTest {
 		assertTrue(new String(Base64.getDecoder().decode(parsed.getDescription())).startsWith("This plugin allows you to swap the items in your hotbar with other items in your inventory."));
 	}
 
+	@Test
+	public void stringToNumberTest() {
+		String string = "1.58.6.59.7";
+		int number = ParserUtil.stringToNumber(string);
+
+		System.out.println(string + " => " + number);
+	}
+
+	@Test
+	public void stringToNumberTest2() {
+		String string = "Jan 2, 2018 at 2:22 PM";
+		int number = ParserUtil.stringToNumber(string);
+
+		System.out.println(string + " => " + number);
+	}
+
+
 }

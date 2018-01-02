@@ -80,4 +80,14 @@ public class ParserUtil {
 		}
 	}
 
+	public static int stringToNumber(String string) {
+		int num = 1337;
+		for (int i = 0; i < string.length(); i++) {
+			char ch = string.charAt(i);
+			int pos = ch - 'a' + 1;
+			num += pos;
+		}
+		return num;
+	}
+
 }
