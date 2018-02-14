@@ -43,6 +43,27 @@ public class ResourcePageParser {
 							resource.setContributors(contributorsElement.text());
 						}
 					}
+					{
+						Element customResourceFieldSourceCode = customResourceFields.select("dl.customResourceFieldsource_code").first();// <dl class="customResourceFieldsource_code">
+						if (customResourceFieldSourceCode != null) {
+							Element sourceCodeElement = customResourceFieldSourceCode.select("a").first();
+							resource.setSourceCodeLink(sourceCodeElement.attr("href"));
+						}
+					}
+					{
+						Element customResourceFieldDonation = customResourceFields.select("dl.customResourceFielddonate_link").first();// <dl class="customResourceFielddonate_link">
+						if (customResourceFieldDonation != null) {
+							Element donationElement = customResourceFieldDonation.select("a").first();
+							resource.setDonationLink(donationElement.attr("href"));
+						}
+					}
+					{
+						Element customResourceFieldLanguages = customResourceFields.select("dl.customResourceFieldlanguages").first();// <dl class="customResourceFieldlanguages">
+						if (customResourceFieldLanguages != null) {
+							Element languagesElement = customResourceFieldLanguages.select("a").first();
+							resource.setSupportedLanguages(languagesElement.attr("href"));
+						}
+					}
 
 					customResourceFields.remove();// Remove so we only have the actual description left
 				}
