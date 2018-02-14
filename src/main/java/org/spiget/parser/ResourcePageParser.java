@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
+import static org.spiget.parser.ParserUtil.*;
+
 public class ResourcePageParser {
 
 	public Resource parse(Document document, ListedResource base) {
@@ -69,6 +71,16 @@ public class ResourcePageParser {
 				resource.setExternal(true);
 			} else {
 				resource.setFile(new ResourceFile(minorTextSplit[2], Float.parseFloat(minorTextSplit[0].replace(",", "")), minorTextSplit[1], innerLink.attr("href")));// 32.6 KB .sk
+			}
+		}
+
+		// Download update when updating individual resources
+		{
+			Element resourceInfo = document.select("div.statsList#resourceInfo").first();
+			{
+				Element resourceDownloads = resourceInfo.select("dl.downloadCount").first();
+				Element resourceDownloadNumber = resourceDownloads.select("dd").first();
+				resource.setDownloads(Integer.parseInt(stringToInt(resourceDownloadNumber.text())));
 			}
 		}
 
