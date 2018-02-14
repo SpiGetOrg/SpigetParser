@@ -60,8 +60,8 @@ public class ResourcePageParser {
 					{
 						Element customResourceFieldLanguages = customResourceFields.select("dl.customResourceFieldlanguages").first();// <dl class="customResourceFieldlanguages">
 						if (customResourceFieldLanguages != null) {
-							Element languagesElement = customResourceFieldLanguages.select("a").first();
-							resource.setSupportedLanguages(languagesElement.attr("href"));
+							Element languagesElement = customResourceFieldLanguages.select("dd").first();// <dd>English</dd>
+							resource.setSupportedLanguages(languagesElement.text());
 						}
 					}
 
