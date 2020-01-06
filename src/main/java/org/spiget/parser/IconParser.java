@@ -16,7 +16,7 @@ public class IconParser {
 
 		String iconSource = resourceAvatarImage.attr("src");
 		String iconData = "";
-		if (iconSource.contains("static.spigotmc.org")) {
+		if (iconSource.contains("static.spigotmc.org/")) {
 			iconSource = "";
 		} else {
 			try {
