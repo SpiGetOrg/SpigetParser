@@ -54,7 +54,7 @@ public class ParserUtil {
 	 * @throws InterruptedException if the download fails
 	 */
 	public static String iconToBase64(String source) throws IOException, InterruptedException {
-		SpigetDownload iconDownload = SpigetClient.download(SpigetClient.BASE_URL + source);
+		SpigetDownload iconDownload = SpigetClient.download((!source.startsWith("http") ? SpigetClient.BASE_URL:"") + source);
 		byte[] iconBytes = IOUtils.toByteArray(iconDownload.getInputStream());
 		return Base64.getEncoder().encodeToString(iconBytes);
 	}
