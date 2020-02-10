@@ -1,5 +1,6 @@
 package org.spiget.parser;
 
+import org.jetbrains.annotations.NotNull;
 import org.jsoup.nodes.Element;
 import org.spiget.data.resource.ListedResource;
 import org.spiget.data.resource.Rating;
@@ -15,8 +16,9 @@ public class PremiumResourceVersionItemParser extends ResourceVersionItemParser 
 	 * @param versionItem &lt;tr class="dataRow "&gt;
 	 * @return the parsed version
 	 */
+	@NotNull
 	@Override
-	public ResourceVersion parse(Element versionItem, ListedResource resource) {
+	public ResourceVersion parse(@NotNull Element versionItem, @NotNull ListedResource resource) {
 		Element version = versionItem.select("td.version").first();// <td class="version">1.5</td>
 		Element releaseDate = versionItem.select("td.releaseDate").first();// <td class="releaseDate"><abbr class="DateTime" data-time="1466633628" data-diff="4835" data-datestring="Jun 22, 2016" data-timestring="11:13 PM" title="Jun 22, 2016 at 11:13 PM">Yesterday at 11:13 PM</abbr></td>
 		Element downloads = versionItem.select("td.downloads").first();// <td class="downloads">2</td>

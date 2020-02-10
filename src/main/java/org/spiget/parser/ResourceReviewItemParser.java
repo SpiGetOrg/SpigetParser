@@ -1,5 +1,6 @@
 package org.spiget.parser;
 
+import org.jetbrains.annotations.NotNull;
 import org.jsoup.nodes.Element;
 import org.spiget.data.author.ListedAuthor;
 import org.spiget.data.resource.Rating;
@@ -12,7 +13,8 @@ import static org.spiget.parser.ParserUtil.*;
 
 public class ResourceReviewItemParser {
 
-	public ResourceReview parse(Element resourceReviewItem) {
+	@NotNull
+	public ResourceReview parse(@NotNull Element resourceReviewItem) {
 		int reviewId;
 		ListedAuthor reviewAuthor;
 		Rating reviewRating;

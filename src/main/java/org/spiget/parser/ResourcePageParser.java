@@ -1,5 +1,6 @@
 package org.spiget.parser;
 
+import org.jetbrains.annotations.NotNull;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.spiget.data.resource.ListedResource;
@@ -14,7 +15,8 @@ import static org.spiget.parser.ParserUtil.*;
 
 public class ResourcePageParser {
 
-	public Resource parse(Document document, ListedResource base) {
+	@NotNull
+	public Resource parse(@NotNull Document document, @NotNull ListedResource base) {
 		Resource resource = new Resource(base);
 
 		Element updateContainer = document.select("div.updateContainer").first();

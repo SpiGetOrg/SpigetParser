@@ -1,6 +1,7 @@
 package org.spiget.parser;
 
 import lombok.extern.log4j.Log4j2;
+import org.jetbrains.annotations.NotNull;
 import org.jsoup.nodes.Element;
 import org.spiget.data.author.ListedAuthor;
 import org.spiget.data.category.ListedCategory;
@@ -25,7 +26,8 @@ public class ResourceListItemParser {
 	 * @param resourceItem &lt;li class="resourceListItem" id="resource-1234"&gt;
 	 * @return the parsed item
 	 */
-	public ListedResource parse(Element resourceItem) {
+	@NotNull
+	public ListedResource parse(@NotNull Element resourceItem) {
 		if (debug) {
 			log.debug(resourceItem);
 		}

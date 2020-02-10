@@ -2,6 +2,7 @@ package org.spiget.parser;
 
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
+import org.jetbrains.annotations.NotNull;
 import org.jsoup.nodes.Element;
 import org.spiget.client.SpigetClient;
 import org.spiget.client.SpigetDownload;
@@ -53,7 +54,8 @@ public class ParserUtil {
 	 * @throws IOException          if the download fails
 	 * @throws InterruptedException if the download fails
 	 */
-	public static String iconToBase64(String source) throws IOException, InterruptedException {
+	@NotNull
+	public static String iconToBase64(@NotNull String source) throws IOException, InterruptedException {
 		SpigetDownload iconDownload = SpigetClient.download((!source.startsWith("http") ? SpigetClient.BASE_URL:"") + source);
 		byte[] iconBytes = IOUtils.toByteArray(iconDownload.getInputStream());
 		return Base64.getEncoder().encodeToString(iconBytes);
@@ -65,11 +67,13 @@ public class ParserUtil {
 	 * @param original number string
 	 * @return the stripped integer string
 	 */
-	public static String stringToInt(String original) {
+	@NotNull
+	public static String stringToInt(@NotNull String original) {
 		return original.replace(",", "").replace(".", "");
 	}
 
-	public static long parseTimeOrTitle(Element element) {
+	@NotNull
+	public static long parseTimeOrTitle(@NotNull Element element) {
 		if (element.hasAttr("data-time")) {
 			return Long.parseLong(element.attr("data-time"));
 		} else if (element.hasAttr("title")) {
@@ -80,11 +84,11 @@ public class ParserUtil {
 		}
 	}
 
-	public static int stringToNumber(String string) {
+	public static int stringToNumber(@NotNull String string) {
 		return stringToNumber(string, 1337);
 	}
 
-	public static int stringToNumber(String string, int num) {
+	public static int stringToNumber(@NotNull String string, int num) {
 		for (int i = 0; i < string.length(); i++) {
 			char ch = string.charAt(i);
 			int pos = ch - 'a' + 1;

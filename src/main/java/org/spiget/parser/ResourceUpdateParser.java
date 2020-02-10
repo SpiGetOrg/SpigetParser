@@ -1,5 +1,6 @@
 package org.spiget.parser;
 
+import org.jetbrains.annotations.NotNull;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.spiget.data.resource.update.ResourceUpdate;
@@ -11,7 +12,8 @@ import static org.spiget.parser.ParserUtil.parseTimeOrTitle;
 
 public class ResourceUpdateParser {
 
-	public ResourceUpdate parse(Document document, ResourceUpdate base) {
+	@NotNull
+	public ResourceUpdate parse(@NotNull Document document, @NotNull ResourceUpdate base) {
 		Element resourceUpdate = document.select("li.resourceUpdate").first();
 		Element messageText = resourceUpdate.select("blockquote.messageText").first();
 		Element datePermalink = resourceUpdate.select("a.datePermalink").first();
