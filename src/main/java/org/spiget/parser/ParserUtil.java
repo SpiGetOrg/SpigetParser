@@ -1,5 +1,6 @@
 package org.spiget.parser;
 
+import io.sentry.Sentry;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
@@ -41,6 +42,7 @@ public class ParserUtil {
 		try {
 			return DATE_TIME_FORMAT.parse(dateTime).getTime() / 1000;// divide by 1000 for UNIX
 		} catch (ParseException e) {
+			Sentry.captureException(e);
 			log.warn("Unable to parse " + dateTime + " to timestamp");
 			return 0;
 		}

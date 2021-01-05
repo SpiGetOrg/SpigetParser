@@ -1,5 +1,6 @@
 package org.spiget.parser;
 
+import io.sentry.Sentry;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.spiget.client.SpigetClient;
@@ -41,6 +42,7 @@ public class Paginator implements Iterable<Document> {
 			SpigetResponse response = doRequest(String.format(this.pageFormat, page));
 			return response.getDocument();
 		} catch (IOException | InterruptedException e) {
+			Sentry.captureException(e);
 			throw new RuntimeException(e);
 		}
 	}

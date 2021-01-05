@@ -1,5 +1,6 @@
 package org.spiget.parser;
 
+import io.sentry.Sentry;
 import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
 import org.jsoup.nodes.Element;
@@ -42,6 +43,7 @@ public class IconParser {
             try {
                 iconData = iconToBase64(iconSource);
             } catch (IOException | InterruptedException e) {
+                Sentry.captureException(e);
                 log.warn("Failed to download icon data for " + iconSource, e);
             }
         }

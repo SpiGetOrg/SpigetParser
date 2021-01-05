@@ -1,5 +1,6 @@
 package org.spiget.parser;
 
+import io.sentry.Sentry;
 import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
 import org.jsoup.nodes.Element;
@@ -118,6 +119,7 @@ public class ResourceListItemParser {
 					try {
 						listedResource.setPrice(Double.parseDouble(costSplit[0]));
 					} catch (NumberFormatException e) {
+						Sentry.captureException(e);
 						listedResource.setPrice(0);
 					}
 					listedResource.setCurrency(costSplit[1]);
