@@ -1,5 +1,6 @@
 package org.spiget.parser;
 
+import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import static org.spiget.parser.ParserUtil.*;
 
+@Log4j2
 public class ResourcePageParser {
 
 	@NotNull
@@ -20,10 +22,18 @@ public class ResourcePageParser {
 		Resource resource = new Resource(base);
 
 		Element updateContainer = document.select("div.updateContainer").first();
+		if(updateContainer==null ){
+			log.warn(document.select("div.updateContainer"));
+			throw new RuntimeException(".updateContainer was null!");
+		}
 		{
 			Element descriptionText = updateContainer.select("blockquote.messageText").first();
+			if(descriptionText==null){
+				log.warn(updateContainer.select("blockquote.messageText"));
+				throw new RuntimeException(".messageText was null");
+			}
 			{
-				Element customResourceFields = descriptionText.select("div.customResourceFields").first();
+				Element customResourceFields = descriptionText.select(".customResourceFields").first();
 				if (customResourceFields != null) {
 					{
 						Element customResourceFieldVersions = customResourceFields.select("dl.customResourceFieldmc_versions").first();// <dl class="customResourceFieldmc_versions">
@@ -36,6 +46,13 @@ public class ResourcePageParser {
 							}
 
 							resource.setTestedVersions(testedVersions);
+						}
+					}
+					{
+						Element customResourceFieldNativeVersion = customResourceFields.select("dlcustomResourceFieldnative_mc_version").first();// <dl class="customResourceFieldnative_mc_version">
+						if (customResourceFieldNativeVersion != null) {
+							Element contributorsElement = customResourceFieldNativeVersion.select("dd").first();// <dd>Example</dd>
+							resource.setNativeVersion(contributorsElement.text());
 						}
 					}
 					{
@@ -140,7 +157,6 @@ public class ResourcePageParser {
 
 		return resource;
 	}
-
 	public Resource parse(Document document, int id) {
 		return parse(document, new ListedResource(id));
 	}
