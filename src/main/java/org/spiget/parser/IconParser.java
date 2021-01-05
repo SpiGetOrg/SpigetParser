@@ -45,7 +45,7 @@ public class IconParser {
                 log.warn("Failed to download icon data for " + iconSource, e);
             }
         }
-        return new SpigetIcon(iconSource, iconData);
+        return new SpigetIcon(iconSource, iconData, info, hash);
     }
 
 }
