@@ -107,10 +107,10 @@ public class ResourcePageParser {
 			String[] minorTextSplit = minorText.text().split("\\s+");
 
 			if (minorText.text().contains("external")) {// External
-				resource.setFile(new ResourceFile("external", 0, "", innerLink.attr("href")));
+				resource.setFile(new ResourceFile("external", 0, "", innerLink.attr("href"), ParserUtil.followExternalUrl(innerLink.attr("href"))));
 				resource.setExternal(true);
 			} else {
-				resource.setFile(new ResourceFile(minorTextSplit[2], Float.parseFloat(minorTextSplit[0].replace(",", "")), minorTextSplit[1], innerLink.attr("href")));// 32.6 KB .sk
+				resource.setFile(new ResourceFile(minorTextSplit[2], Float.parseFloat(minorTextSplit[0].replace(",", "")), minorTextSplit[1], innerLink.attr("href"), null));// 32.6 KB .sk
 			}
 		}
 

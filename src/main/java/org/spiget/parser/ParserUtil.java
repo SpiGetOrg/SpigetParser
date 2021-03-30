@@ -4,6 +4,8 @@ import io.sentry.Sentry;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.spiget.client.SpigetClient;
 import org.spiget.client.SpigetDownload;
@@ -97,6 +99,28 @@ public class ParserUtil {
 			num -= pos;
 		}
 		return num;
+	}
+
+	public static String followExternalUrl(String url) {
+		try {
+			if (!url.startsWith("http")) {
+				url = SpigetClient.BASE_URL + url;
+			}
+			Connection.Response response = Jsoup.connect(url)
+					.userAgent(SpigetClient.userAgent)
+					.followRedirects(false)
+					.timeout(5000)
+					.method(Connection.Method.GET)
+					.execute();
+			String locationHeader = response.header("Location");
+			if (locationHeader != null) {
+				return locationHeader;
+			}
+		} catch (Exception e) {
+			Sentry.captureException(e);
+			log.warn("Failed to follow external url", e);
+		}
+		return url;
 	}
 
 }
