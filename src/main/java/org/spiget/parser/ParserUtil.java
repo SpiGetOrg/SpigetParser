@@ -31,6 +31,7 @@ public class ParserUtil {
 		while (matcher.find()) {
 			return matcher.group(1);
 		}
+		log.warn("Failed to extract id from " + url);
 		return "-1";
 	}
 

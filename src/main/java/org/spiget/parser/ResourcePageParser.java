@@ -121,7 +121,8 @@ public class ResourcePageParser {
 			Element resourceInfo = document.select("div.statsList#resourceInfo").first();
 			{
 				Element author = resourceInfo.select("dl.author").first();
-				Element resourceAuthor = author.select("dd").first();
+				Element authorEl = author.select("dd").first();
+				Element resourceAuthor = authorEl.select("a").first();
 				resource.setAuthor(new ListedAuthor(Integer.parseInt(extractIdFromUrl(resourceAuthor.attr("href"), DOT_URL_ID)), resourceAuthor.text(), null));
 			}
 			{
@@ -131,7 +132,8 @@ public class ResourcePageParser {
 			}
 			{
 				Element category = resourceInfo.select("dl.resourceCategory").first();
-				Element resourceCategory = category.select("dd").first();
+				Element categoryEl = category.select("dd").first();
+				Element resourceCategory = categoryEl.select("a").first();
 				resource.setCategory(new ListedCategory(Integer.parseInt(extractIdFromUrl(resourceCategory.attr("href"), DOT_URL_ID)), resourceCategory.text()));
 			}
 		}
