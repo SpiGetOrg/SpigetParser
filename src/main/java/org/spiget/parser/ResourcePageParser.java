@@ -4,6 +4,8 @@ import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.spiget.data.author.ListedAuthor;
+import org.spiget.data.category.ListedCategory;
 import org.spiget.data.resource.ListedResource;
 import org.spiget.data.resource.Resource;
 import org.spiget.data.resource.ResourceFile;
@@ -118,9 +120,19 @@ public class ResourcePageParser {
 		{
 			Element resourceInfo = document.select("div.statsList#resourceInfo").first();
 			{
+				Element author = resourceInfo.select("dl.author").first();
+				Element resourceAuthor = author.select("dd").first();
+				resource.setAuthor(new ListedAuthor(Integer.parseInt(extractIdFromUrl(resourceAuthor.attr("href"), DOT_URL_ID)), resourceAuthor.text(), null));
+			}
+			{
 				Element resourceDownloads = resourceInfo.select("dl.downloadCount").first();
 				Element resourceDownloadNumber = resourceDownloads.select("dd").first();
 				resource.setDownloads(Integer.parseInt(stringToInt(resourceDownloadNumber.text())));
+			}
+			{
+				Element category = resourceInfo.select("dl.resourceCategory").first();
+				Element resourceCategory = category.select("dd").first();
+				resource.setCategory(new ListedCategory(Integer.parseInt(extractIdFromUrl(resourceCategory.attr("href"), DOT_URL_ID)), resourceCategory.text()));
 			}
 		}
 
